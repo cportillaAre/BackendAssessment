@@ -6,12 +6,14 @@ import com.example.backendAssessment.entity.CheckMortage;
 import com.example.backendAssessment.entity.Rates;
 import com.example.backendAssessment.exception.BackendAssesmentNotFoundException;
 import com.example.backendAssessment.repository.CheckMortageRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
+@Slf4j
 @Service
 public class CheckMortageServiceImpl implements CheckMortageService {
 
@@ -40,6 +42,7 @@ public class CheckMortageServiceImpl implements CheckMortageService {
             checkMortage.setHomeValue(homeValue);
             checkMortage.setMaturityPeriod(rate);
             checkMortageRepository.save(checkMortage);
+            log.info("Mortage check saved");
         }
         BigDecimal monthlyCosts = loanValue.multiply(rate.getInterestRate()).divide(BigDecimal.valueOf(rate.getMaturityPeriod() * 12),2, RoundingMode.HALF_UP);
         return new MortageDto(feasible, monthlyCosts);

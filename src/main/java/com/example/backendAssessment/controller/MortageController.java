@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @RestController
 public class MortageController {
     RatesRepository ratesRepository;
